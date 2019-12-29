@@ -1,0 +1,60 @@
+<!--
+
+{% if request.user.permittedlist %}
+    
+{% endif %}
+    -->
+<h1>Current Session:{{ request.user.username }}</h1>
+{% if request.user.userpermission.is_student == True %}
+{% for a in all_user %}
+    {% if a.userpermission.is_student == False %}
+        <a href="/dialogs/{{ a.username }}">{{a.username}}</a> -
+        
+        
+        
+        {% if a.permittedlist in request.user.permittedlist.allowed.all %}
+        <a href="/social/untrustable/{{a.id}}">Mark as Untrustable</a>-
+        trustable:
+            True 
+            {% else %}
+            <a href="/social/trustable/{{a.id}}">Mark as Trustable</a>-
+            trustable:
+            False
+        {% endif %}
+        
+        {% if request.user.resolvedlist in a.resolvedlist.resolved.all %}
+            Faculty has marked your issue as resolved. <a href= "#">Open new issue</a>
+            {% else %}
+            Issue active
+        {% endif %}
+            
+            
+        <br>
+    {% endif %}
+        
+{% endfor %}
+    {% else %}
+    {% for a in all_user %}
+    
+    {% if a.userpermission.is_student == True %}
+        <a href="/dialogs/{{ a.username }}">
+            {% if request.user.permittedlist in a.permittedlist.allowed.all %}
+            {{ a.username }}-
+        {% else %}
+            Anonymous {{a.id}}-
+    {% endif %}
+</a> -
+{% if a.resolvedlist in request.user.resolvedlist.resolved.all %}
+    <p>Student Issue Resolved</p>
+{% else %}
+            <a href="/social/resolved/{{a.id}}/">Marks Issue as resolved</a>
+{% endif %}
+<!--found the issue. Create an instance of the object of faculty resolved list-->
+
+       
+        <!--<a href="#">Issue Resolved</a>-->
+        <br>
+    {% endif %}
+        
+{% endfor %}
+{% endif %}

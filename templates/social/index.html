@@ -1,0 +1,14 @@
+<h1>This is the project main page</h1>
+I have attached the links design and work on it
+<ul>
+    <li><a href="/social/register/">Register</a></li>
+    <li><a href="/social/login/">Login</a></li>
+    <li><a href="/social/home/">Page</a></li>
+    <li><a href="/social/logout">Logout</a></li>
+    
+    {% if user.is_authenticated and  request.user.is_superuser %}
+            <li><a href="/social/create">Create faculty and counsellors</a></li>
+    {% endif %}
+        
+    <li><a href="/admin/">Admin</a></li>
+</ul>
