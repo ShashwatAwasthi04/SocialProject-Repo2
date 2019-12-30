@@ -33,6 +33,7 @@ CHAT_WS_SERVER_PROTOCOL = 'ws'
 # Application definition
 
 INSTALLED_APPS = [
+    'social',
     'accounts',
     'django_private_chat',
     'django.contrib.admin',

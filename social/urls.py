@@ -30,5 +30,7 @@ urlpatterns = [
     re_path(r'^social/unresolved/(?P<id_user>[0-9]+)/$',views.unresolved, name="unresolved"), 
     re_path(r'^social/untrustable/(?P<id_user>[0-9]+)/$', views.untrustable,name="untrustable"),
     path('social/create/', views.create,name = "create"),
+    path('social/post/',views.post,name= "post"),
+    path('social/addPost/', views.addPost, name= "addPost")
    
 ]

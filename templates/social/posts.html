@@ -1,0 +1,30 @@
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v5.0"></script>
+{% if all_post %}
+{% for post in all_post %}
+ By {{post.username}}- <br>
+ 
+ {% if post.image %}
+ <img src="{{post.image.url}}" ><br>
+ {% endif %}
+     
+{{post.desription}} <br>
+<!--comments-->
+
+    
+<div class="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments/socialProject1/ayushganguli1769/{{post.id}}" data-width="" data-numposts="5"></div>
+<br>
+{% endfor %}
+  {% else %}
+  <h1>No, post available</h1>
+{% endif %}
+
+{% if request.user.userpermission.is_student == False %}
+    <form action="/social/addPost/" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <textarea name="description" cols="30" rows="10"></textarea>
+        <label for="myImage">ADD IMAGE:</label>
+        <input type="file" id="myImage" name="image">
+        <button name="add">POST</button>
+    </form>
+{% endif %}

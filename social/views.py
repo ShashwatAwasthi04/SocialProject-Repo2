@@ -3,6 +3,8 @@ from django.http import HttpResponse, Http404
 from django.contrib.auth.models import User, auth
 from accounts.models import permittedlist, userpermission, resolvedlist
 from django.contrib.auth.decorators import login_required
+from social.models import Post
+from datetime import datetime
 # Create your views here.
 def index(request):
     return render(request,'social/index.html')
@@ -101,4 +103,23 @@ def create(request):
 
 def unresolved(request,id_user):
     pass
+def post(request):
+    all_post = Post.objects.all().order_by('-date')
+    return render(request,'social/posts.html',{'all_post':all_post})
+def addPost(request):
+    if request.user.userpermission.is_student == False:
+        if 'add' in request.POST:
+            image = None
+            username = request.user.username
+            desription = request.POST['description']
+            date = datetime.now()
+            a = Post(username = username,desription = desription,date = date)
+            a.save()
+            if 'image' in request.FILES:
+                image = request.FILES['image']
+                a.image = image
+        all_post = Post.objects.all().order_by('-date')
+        return render(request,'social/posts.html',{'all_post':all_post})
+    else:
+        raise Http404("Unathorized acess")
     
