@@ -78,7 +78,7 @@
                             <!--compare script end--> {% trans "is typing..." %}</strong>
                     </span>
                 </div>
-                <p>
+                <p style="font-weight: bolder;font-size: 20px;color:rgb(56, 51, 53);">
                     {% if request.user.userpermission.is_student %}
                             {{ opponent_username }}
                         {% else %}
@@ -100,7 +100,7 @@
                 <p class="text-success" id="online-status" style="display: none">{% trans "Online" %}</p>
                 <p class="text-danger" id="offline-status" style="display: none">{% trans "Offline" %}</p>
 
-                <div class="messages-container">
+                <div class="messages-container" style="background-color: lavender;">
                     <div id="messages" class="messages">
                         {% for msg in active_dialog.messages.all %}
                             <div class="row {% if msg.read %}msg-read{% else %}msg-unread{% endif %}"
